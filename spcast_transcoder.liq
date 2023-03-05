@@ -1,6 +1,6 @@
 #!/home/spcast/.opam/default/bin/liquidsoap
 
-### Log: https://www.liquidsoap.info/doc-dev/settings.html#log-configuration
+# Log: https://www.liquidsoap.info/doc-dev/settings.html#log-configuration
 settings.log.unix_timestamps.set(true)
 settings.log.stdout.set(true)
 settings.log.level.set(3)
@@ -42,99 +42,17 @@ settings.root.max_latency.set(60.)
 # remote source to be transcoded
 remoteUrl = "http://localhost:80/stream"
 #source = input.http(remoteUrl)
-relay = mksafe(input.http(remoteUrl,user_agent="SPCast: Transcoder"))
+relay = mksafe(input.http(remoteUrl,user_agent="SPCast Transcoder"))
 convertstereo = audio_to_stereo(relay)
 
 # local file
-emergency = single("/home/spcast/SPCast/userdisk/nofunction.mp3")
+emergency = single("/home/spcast/SPCast/transcoder/offline_transcoder.mp3")
 
 # fallback function
 radio = fallback(track_sensitive=false,[convertstereo, emergency])
 
 # Include Radiodetails
-%include "radiodata.liq"
+%include "transcoder_radiodata.liq"
 
-### Tanscoder Connect
-# 256 Kbit/s
-output.icecast(%mp3(bitrate=256, stereo=true, samplerate=44100),
-host="localhost",
-user = "sqcdcnmneuyelvxr",
-password = "rxyYdBpesDWVYgbBrTSL47HoSyIb4Q2v",
-mount = "/stream256",
-name = (spRadioName),
-url = (spRadioURL),
-description = (spRadioDescription),
-port = 80
-,radio)
-
-# 192 Kbit/s
-output.icecast(%mp3(bitrate=192, stereo=true, samplerate=44100),
-host="localhost",
-user = "ovwmomcbcfftaykw",
-password = "oGATJlBcYZgOZYYhsAmgAs8pc0bmiV2E",
-mount = "/stream192",
-name = (spRadioName),
-url = (spRadioURL),
-description = (spRadioDescription),
-port = 80
-,radio)
-
-# 128 Kbit/s
-output.icecast(%mp3(bitrate=128, stereo=true, samplerate=44100),
-host="localhost",
-user = "leditoxvpdyscjqa",
-password = "mYt5gZ3CkGtslQjGWy1RRbwP80AW5ojp",
-mount = "/stream128",
-name = (spRadioName),
-url = (spRadioURL),
-description = (spRadioDescription),
-port = 80
-,radio)
-
-# 96 Kbit/s
-output.icecast(%mp3(bitrate=96, stereo=true, samplerate=44100),
-host="localhost",
-user = "qwluwxrisqerqltk",
-password = "m7vDUm1JY7HLhywcBOCBUxXmZIrv1T2f",
-mount = "/stream96",
-name = (spRadioName),
-url = (spRadioURL),
-description = (spRadioDescription),
-port = 80
-,radio)
-
-# 64 Kbit/s
-output.icecast(%fdkaac(bitrate=64, channels=2, samplerate=44100),
-host="localhost",
-user = "puamedwvzxwdrdnf",
-password = "xJkeVaJVDWglnhYOG8EDw4j66MYlRiVr",
-mount = "/stream64",
-name = (spRadioName),
-url = (spRadioURL),
-description = (spRadioDescription),
-port = 80
-,radio)
-
-# 48 Kbit/s
-output.icecast(%fdkaac(bitrate=48, channels=2, samplerate=44100),
-host="localhost",
-user = "lptxahcafslhufen",
-password = "gRnjotL9eFGwDPOBWQRTuo5FJCnEonUw",
-mount = "/stream48",
-name = (spRadioName),
-url = (spRadioURL),
-description = (spRadioDescription),
-port = 80
-,radio)
-
-# 32 Kbit/s
-output.icecast(%fdkaac(bitrate=32, channels=2, samplerate=44100),
-host="localhost",
-user = "wdugmjxotdulzkgu",
-password = "DtIRWMkC9pV4B632Kj048lqlnbSLfDoL",
-mount = "/stream32",
-name = (spRadioName),
-url = (spRadioURL),
-description = (spRadioDescription),
-port = 80
-,radio)
+# Include Credentials
+%include "transcoder_credentials.liq"
