@@ -6,6 +6,9 @@ rm -f /usr/share/zabbix/sp/secure/.restart_transcoder
 # Kill the process with the name haqweawhvjzaam
 pkill -f haqweawhvjzaam
 
+# Remove Logfiles
+rm -f /home/spcast/SPCast/transcoder/logs/*.log*
+
 # Wait for 3 seconds
 sleep 3
 
