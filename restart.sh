@@ -19,4 +19,4 @@ chmod +x /home/spcast/SPCast/transcoder/spcast_transcoder.liq
 cd /home/spcast/SPCast/transcoder
 
 # Execute the spcast_transcoder.liq with the name haqweawhvjzaam
-nice -n 10 bash -c './spcast_transcoder.liq --name "haqweawhvjzaam"'
+nice -n -5 bash -c './spcast_transcoder.liq --name "haqweawhvjzaam"'

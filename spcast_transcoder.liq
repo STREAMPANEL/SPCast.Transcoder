@@ -28,10 +28,13 @@ settings.harbor.bind_addrs.set(["127.0.0.1"])
 
 # Frame Format: https://www.liquidsoap.info/doc-dev/settings.html#frame-format
 settings.frame.midi.channels.set(0)
-settings.frame.duration.set(0.04)
+settings.frame.duration.set(0.01)
 #settings.frame.audio.size.set(<value>)
-settings.frame.audio.samplerate.set(44100)
-settings.frame.audio.channels.set(2)
+#settings.frame.audio.samplerate.set(44100)
+#settings.frame.audio.channels.set(2)
+
+# We dont have video outputs here
+settings.frame.video.samplerate.set(0)
 
 # Metadata: https://www.liquidsoap.info/doc-dev/settings.html#encoder-settings
 settings.encoder.metadata.export.set(["artist", "title", "album", "genre", "date", "tracknumber", "comment", "track", "year", "dj", "next", "apic", "metadata_block_picture", "coverart"])
@@ -41,18 +44,27 @@ settings.root.max_latency.set(60.)
 
 # remote source to be transcoded
 remoteUrl = "http://localhost:80/stream"
-#source = input.http(remoteUrl)
-relay = mksafe(input.http(remoteUrl,user_agent="SPCast Transcoder"))
-convertstereo = audio_to_stereo(relay)
 
-# local file
+# Get the remote stream and set a user agent. 
+# Then, add a buffer to handle any network inconsistencies.
+relay = buffer(mksafe(input.http(remoteUrl, user_agent="SPCast Transcoder")))
+
+# Convert the stream to stereo
+#convertstereo = audio_to_stereo(relay)
+
+# local emergency file
 emergency = single("/home/spcast/SPCast/transcoder/offline_transcoder.mp3")
 
-# fallback function
-radio = fallback(track_sensitive=false,[convertstereo, emergency])
+# Use a fallback mechanism. 
+# If the remote stream goes offline or is unavailable, 
+# it will automatically switch to the emergency file.
+#radio = fallback(track_sensitive=false, [convertstereo, emergency])
+radio = fallback(track_sensitive=false, [relay, emergency])
 
-# Include Radiodetails
+# Include Radio details and Credentials
 %include "transcoder_radiodata.liq"
-
-# Include Credentials
 %include "transcoder_credentials.liq"
+
+# If you want to output the transcoded stream to an Icecast server, 
+# you'll include appropriate output.icecast lines in the "transcoder_credentials.liq" file.
+
