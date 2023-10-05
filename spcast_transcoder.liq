@@ -38,7 +38,7 @@ settings.encoder.metadata.export.set(["artist", "title", "album", "genre", "date
 # Audio settings
 settings.audio.converter.samplerate.native.quality.set("nearest") # either “nearest” or default “linear”
 settings.audio.converter.samplerate.libsamplerate.quality.set("zero_order") # "best", "medium", "fast", "zero_order" or "linear"
-settings.audio.converter.samplerate.converters.set(["native"]) # "libsamplerate", "ffmpeg", "native"
+settings.audio.converter.samplerate.converters.set(["libsamplerate", "native"]) # "libsamplerate", "ffmpeg", "native"
 
 # Video settings
 settings.video.converter.preferred.set("none") # default is ffmpeg
