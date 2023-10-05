@@ -19,4 +19,4 @@ chmod +x /home/spcast/SPCast/transcoder/spcast_transcoder.liq
 cd /home/spcast/SPCast/transcoder
 
 # Execute the spcast_transcoder.liq with the name haqweawhvjzaam as the spcast user
-nice -n -5 bash -c './spcast_transcoder.liq --name "haqweawhvjzaam"'
+if [ ! -e "/home/spcast/SPCast/transcoder/spcast_transcoder.pid" ]; then nice -n -5 bash -c './spcast_transcoder.liq --name "haqweawhvjzaam"'; fi
