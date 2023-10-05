@@ -35,8 +35,17 @@ settings.frame.audio.channels.set(2) # Set the number of audio channels for the 
 # Metadata Configuration for Encoders
 settings.encoder.metadata.export.set(["artist", "title", "album", "genre", "date", "tracknumber", "comment", "track", "year", "dj", "next", "apic", "metadata_block_picture", "coverart"])
 
+# Audio settings
+settings.audio.converter.samplerate.native.quality.set("nearest") # either “nearest” or default “linear”
+settings.audio.converter.samplerate.libsamplerate.quality.set("zero_order") # "best", "medium", "fast", "zero_order" or "linear"
+settings.audio.converter.samplerate.converters.set(["native"]) # "libsamplerate", "ffmpeg", "native"
+
+# Video settings
+settings.video.converter.preferred.set("none") # default is ffmpeg
+settings.video.converter.proportional_scale.set(false) # Preferred proportional scale
+
 # Clock Configuration
-settings.root.max_latency.set(60.) # Set max latency for the root clock
+settings.root.max_latency.set(5.) # Set max latency for the root clock
 
 # Define remote source URL
 remoteUrl = "http://localhost:80/stream"
