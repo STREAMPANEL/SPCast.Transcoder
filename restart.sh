@@ -31,5 +31,6 @@ cd /home/spcast/SPCast/transcoder
 # Execute the spcast_transcoder.liq with the name haqweawhvjzaam as the spcast user
 if [ ! -e "/home/spcast/SPCast/transcoder/spcast_transcoder.pid" ]; then
     echo "Executing spcast_transcoder.liq..."
-    nice -n -5 bash -c '/home/spcast/SPCast/transcoder/spcast_transcoder.liq --name "haqweawhvjzaam"'
+    nice -n -5 bash -c '/home/spcast/SPCast/transcoder/spcast_transcoder.liq --name "haqweawhvjzaam"' &
+    echo "Executed spcast_transcoder.liq..."
 fi
