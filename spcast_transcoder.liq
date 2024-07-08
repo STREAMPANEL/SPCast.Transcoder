@@ -48,7 +48,7 @@ settings.video.converter.proportional_scale.set(false) # Preferred proportional 
 settings.root.max_latency.set(5.) # Set max latency for the root clock
 
 # Define remote source URL
-remoteUrl = "http://localhost:8150/stream"
+remoteUrl = "http://localhost/stream"
 
 # Fetch the remote stream with a custom user agent
 relay = buffer(mksafe(input.http(remoteUrl, user_agent="SPCast Transcoder")))
