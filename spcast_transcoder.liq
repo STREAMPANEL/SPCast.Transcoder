@@ -54,7 +54,7 @@ remoteUrl = "http://localhost/stream"
 relay = buffer(mksafe(input.http(remoteUrl, user_agent="SPCast Transcoder")))
 
 # Local fallback (emergency) file
-emergency = single("/home/spcast/SPCast/transcoder/offline_transcoder.mp3")
+emergency = single("/home/spcast/SPCast/transcoder/offline_transcoder_local.mp3")
 
 # Fallback mechanism: switch to emergency file if the relay stream is down
 radio = fallback(track_sensitive=false, [relay, emergency])
