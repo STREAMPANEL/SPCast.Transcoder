@@ -51,7 +51,7 @@ settings.root.max_latency.set(5.) # Set max latency for the root clock
 remoteUrl = "http://localhost/stream"
 
 # Fetch the remote stream with a custom user agent
-relay = buffer(mksafe(input.http(remoteUrl, user_agent="SPCast Transcoder")))
+relay = buffer(mksafe(input.http(remoteUrl, user_agent="SPCast.eu / Transcoder")))
 
 # Local fallback (emergency) file
 emergency = single("/home/spcast/SPCast/transcoder/offline_transcoder_local.mp3")
